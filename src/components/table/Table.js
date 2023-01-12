@@ -1,7 +1,6 @@
 import {Table} from 'antd';
 import './table.scss'
 import { useDispatch } from 'react-redux';
-import { useMap } from 'react-leaflet';
 
 
 const dataSource = [
@@ -79,18 +78,23 @@ const dataSource = [
 const TableView = () => {
   
   const dispatch = useDispatch();
-
-  function updateRoute(data) {
-    dispatch({type: "CHOOSE_PATH", payload: data});
+  
+  function updateRoute(data, e) {
+      dispatch({type: "CHOOSE_PATH", payload: data});
+      const rows = document.querySelectorAll('.rows');
+      console.log(rows)
+      rows.forEach(i => i.classList.remove('selected'))
+      e.target.parentNode.classList.add('selected')
   }
 
   return <Table className='table' 
                 dataSource={dataSource} 
                 columns={columns}
+                rowClassName={'rows'}
                 onRow={(record) => {
                   return {
-                    onClick: () => {
-                      updateRoute(record)
+                    onClick: (e) => {
+                      updateRoute(record, e)
                     }
                   }
                 }} />
