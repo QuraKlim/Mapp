@@ -1,6 +1,6 @@
 import './map.scss';
-import { useEffect, useState, useMemo, useRef } from 'react';
-import { MapContainer, TileLayer, Polyline, Marker, useMapEvents, useMap } from 'react-leaflet'
+import { useMemo } from 'react';
+import { MapContainer, TileLayer, Polyline, Marker, useMap } from 'react-leaflet'
 import { useSelector } from 'react-redux';
 
 const Map = () => {
@@ -46,7 +46,7 @@ const Path = ({pathCoordinates}) => {
             click() {
                 map.fitBounds(innerBounds)
             }
-        }), [innerBounds],
+        }), [map],
     )
 
     return <Polyline  eventHandlers={innerHandlers} pathOptions={{color: "red"}} positions={pathCoordinates}/>
